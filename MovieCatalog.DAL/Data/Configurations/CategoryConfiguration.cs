@@ -28,5 +28,4 @@ namespace MovieCatalog.DAL.Data.Configurations
                 .IsRequired(false); 
         }
     }
-    }
 }

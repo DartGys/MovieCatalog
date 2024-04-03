@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCatalog.DAL", "MovieCatalog.DAL\MovieCatalog.DAL.csproj", "{2FBA09DF-16EB-4FE1-8DDC-D6A5B210CA32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCatalog.WebAPI", "MovieCatalog.WebAPI\MovieCatalog.WebAPI.csproj", "{F35B4E48-80E1-45EA-8542-403765B40AFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2FBA09DF-16EB-4FE1-8DDC-D6A5B210CA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FBA09DF-16EB-4FE1-8DDC-D6A5B210CA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FBA09DF-16EB-4FE1-8DDC-D6A5B210CA32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F35B4E48-80E1-45EA-8542-403765B40AFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F35B4E48-80E1-45EA-8542-403765B40AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F35B4E48-80E1-45EA-8542-403765B40AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F35B4E48-80E1-45EA-8542-403765B40AFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

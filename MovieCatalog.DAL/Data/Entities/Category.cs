@@ -14,7 +14,7 @@ namespace MovieCatalog.DAL.Data.Entities
         [Column("name")]
         public string Name { get; set; }
         [Column("parent_category_id")]
-        public int ParentCategoryId { get; set; }
+        public int? ParentCategoryId { get; set; }
         public virtual Category ParentCategory { get; set; }
         public virtual ICollection<Category> ChildCategories { get; set; }
         public virtual ICollection<FilmCategory> FilmCategories { get; set; }
