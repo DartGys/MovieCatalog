@@ -17,7 +17,7 @@ namespace MovieCatalog.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FilmModel>>> Get()
+        public async Task<ActionResult<IEnumerable<CategoryModel>>> Get()
         {
             var models = await _categoryService.GetAllAsync();
 
@@ -25,7 +25,7 @@ namespace MovieCatalog.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<FilmModel>> GetById(int id)
+        public async Task<ActionResult<CategoryModel>> GetById(int id)
         {
             var model = await _categoryService.GetByIdAsync(id);
 
