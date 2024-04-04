@@ -19,8 +19,4 @@
     <ProjectReference Include="..\MovieCatalog.DAL\MovieCatalog.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
