@@ -9,5 +9,7 @@ namespace MovieCatalog.BLL.Interfaces
 {
     public interface IFilmService : ICrud<FilmModel>
     {
+        Task<int> AddCategoryToFilm(int filmId, int categoryId);
+        Task DeleteCategoryFromFilm(int filmId, int categoryId);
     }
 }

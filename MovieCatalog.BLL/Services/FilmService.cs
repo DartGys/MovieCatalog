@@ -4,6 +4,7 @@ using MovieCatalog.BLL.Interfaces;
 using MovieCatalog.BLL.Models;
 using MovieCatalog.DAL.Data;
 using MovieCatalog.DAL.Data.Entitie;
+using MovieCatalog.DAL.Data.Entities;
 
 namespace MovieCatalog.BLL.Services
 {
@@ -70,6 +71,46 @@ namespace MovieCatalog.BLL.Services
                 .SetProperty(x => x.Release, model.Release));
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> AddCategoryToFilm(int filmId, int categoryId)
+        {
+            var film = await _context.Film.FindAsync(filmId);
+
+            if(film == null)
+            {
+                throw new Exception("Film doesnt exist");
+            }
+
+            var category = await _context.Categories.FindAsync(categoryId);
+
+            if(category == null)
+            {
+                throw new Exception("Category doesnt exist");
+            }
+
+            var filmCategoryEntity = new FilmCategory()
+            {
+                CategoryId = categoryId,
+                FilmId = filmId
+            };
+
+            await _context.FilmCategories.AddAsync(filmCategoryEntity);
+            await _context.SaveChangesAsync();
+
+            return filmCategoryEntity.Id;
+        }
+
+        public async Task DeleteCategoryFromFilm(int filmId, int categoryId)
+        {
+            var filmCategoryEntity = await _context.FilmCategories
+                .FirstOrDefaultAsync(x => x.CategoryId == categoryId && x.FilmId == filmId);
+
+            if(filmCategoryEntity != null)
+            {
+                _context.FilmCategories.Remove(filmCategoryEntity);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

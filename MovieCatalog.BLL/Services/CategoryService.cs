@@ -4,11 +4,7 @@ using MovieCatalog.BLL.Interfaces;
 using MovieCatalog.BLL.Models;
 using MovieCatalog.DAL.Data;
 using MovieCatalog.DAL.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MovieCatalog.BLL.Services
 {
