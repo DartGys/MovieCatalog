@@ -72,5 +72,27 @@ namespace MovieCatalog.WebAPI.Controllers
 
             return Ok();
         }
+
+        [HttpPost("add-category")]
+        public async Task<ActionResult<int>> AddCategoryToFilm(int filmId, int categoryId)
+        {
+            try
+            {
+                var filmCategoryEntityId = await _filmService.AddCategoryToFilm(filmId, categoryId);
+                return Ok(filmCategoryEntityId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("delete-category")]
+        public async Task<ActionResult> DeleteCategoryFromFilm(int filmId, int categoryId)
+        {
+            await _filmService.DeleteCategoryFromFilm(filmId, categoryId);
+
+            return Ok();
+        }
     }
 }
