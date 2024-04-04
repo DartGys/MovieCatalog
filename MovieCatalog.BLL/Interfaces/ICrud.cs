@@ -12,9 +12,9 @@ namespace MovieCatalog.BLL.Interfaces
 
         Task<TModel> GetByIdAsync(int id);
 
-        Task<Guid> AddAsync(int model);
+        Task<int> AddAsync(TModel model);
 
-        Task<TModel> UpdateAsync(TModel model);
+        Task UpdateAsync(TModel model);
 
         Task DeleteAsync(int modelId);
     }
