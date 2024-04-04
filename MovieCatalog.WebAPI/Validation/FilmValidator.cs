@@ -1,4 +1,4 @@
-﻿using MovieCatalog.BLL.Models;
+﻿using MovieCatalog.BLL.Models.ViewModels;
 
 namespace MovieCatalog.WebAPI.Validation
 {

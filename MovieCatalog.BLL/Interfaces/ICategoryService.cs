@@ -1,4 +1,4 @@
-﻿using MovieCatalog.BLL.Models;
+﻿using MovieCatalog.BLL.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

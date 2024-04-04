@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieCatalog.BLL.Models
+namespace MovieCatalog.BLL.Models.ViewModels
 {
     public class CategoryModel
     {
@@ -20,7 +20,7 @@ namespace MovieCatalog.BLL.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int FilmsCount { get; set; }
-        public CategoryModel ParentCategory {  get; set; }
+        public CategoryModel ParentCategory { get; set; }
         public IReadOnlyList<CategoryModel> ChildCategories { get; set; }
     }
 }

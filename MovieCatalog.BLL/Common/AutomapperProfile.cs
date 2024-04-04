@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MovieCatalog.BLL.Models;
+using MovieCatalog.BLL.Models.ViewModels;
 using MovieCatalog.DAL.Data.Entitie;
 using MovieCatalog.DAL.Data.Entities;
 using System;

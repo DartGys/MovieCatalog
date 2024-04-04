@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieCatalog.BLL.Models
+namespace MovieCatalog.BLL.Models.ViewModels
 {
     public class FilmModel
     {
@@ -19,8 +19,8 @@ namespace MovieCatalog.BLL.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Director {  get; set; }
-        public DateTime Release {  get; set; }
+        public string Director { get; set; }
+        public DateTime Release { get; set; }
         public List<string> Categories { get; set; }
 
     }

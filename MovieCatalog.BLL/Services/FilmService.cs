@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MovieCatalog.BLL.Interfaces;
-using MovieCatalog.BLL.Models;
+using MovieCatalog.BLL.Models.ViewModels;
 using MovieCatalog.DAL.Data;
 using MovieCatalog.DAL.Data.Entitie;
 using MovieCatalog.DAL.Data.Entities;
