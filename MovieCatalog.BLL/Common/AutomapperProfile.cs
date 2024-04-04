@@ -19,7 +19,10 @@ namespace MovieCatalog.BLL.Common
 
             CreateMap<FilmModel, Film>();
 
-            CreateMap<Category, CategoryModel>();
+            CreateMap<Category, CategoryModel>()
+                .ForMember(cm => cm.FilmsCount, f => f.MapFrom(x => x.FilmCategories.Count));
+
+            CreateMap<CategoryModel, Category>();
         }
     }
 }
