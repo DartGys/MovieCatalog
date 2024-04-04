@@ -8,18 +8,19 @@ namespace MovieCatalog.BLL.Models
 {
     public class CategoryModel
     {
-        public CategoryModel(int id, string name, int filmsCount, IReadOnlyList<CategoryModel> categories)
+        public CategoryModel(int id, string name, int filmsCount, IReadOnlyList<CategoryModel> childcategories, CategoryModel parentCategory)
         {
             Id = id;
             Name = name;
             FilmsCount = filmsCount;
-            Categories = categories;
-
+            ChildCategories = childcategories;
+            ParentCategory = parentCategory;
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public int FilmsCount { get; set; }
-        public IReadOnlyList<CategoryModel> Categories { get; set; }
+        public CategoryModel ParentCategory {  get; set; }
+        public IReadOnlyList<CategoryModel> ChildCategories { get; set; }
     }
 }
