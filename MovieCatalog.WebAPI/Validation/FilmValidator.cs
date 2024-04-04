@@ -1,10 +1,11 @@
-﻿using MovieCatalog.BLL.Models.ViewModels;
+﻿using MovieCatalog.BLL.Models.DtoModels;
+using MovieCatalog.BLL.Models.ViewModels;
 
 namespace MovieCatalog.WebAPI.Validation
 {
     public static class FilmValidator
     {
-        public static string Validation(FilmModel model)
+        public static string Validation(FilmInputModel model)
         {
             string error = string.Empty;
 

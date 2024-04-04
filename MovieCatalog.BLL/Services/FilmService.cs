@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MovieCatalog.BLL.Interfaces;
 using MovieCatalog.BLL.Models;
+using MovieCatalog.BLL.Models.DtoModels;
 using MovieCatalog.BLL.Models.ViewModels;
 using MovieCatalog.DAL.Data;
 using MovieCatalog.DAL.Data.Entitie;
@@ -20,7 +21,7 @@ namespace MovieCatalog.BLL.Services
         }
         public async Task<int> AddAsync(AbstractModel model)
         {
-            var filmModel = (FilmModel)model;
+            var filmModel = (FilmInputModel)model;
 
             var entitiy = _mapper.Map<Film>(filmModel);
 
@@ -66,7 +67,7 @@ namespace MovieCatalog.BLL.Services
 
         public async Task UpdateAsync(AbstractModel model)
         {
-            var filmModel = (FilmModel)model;
+            var filmModel = (FilmInputModel)model;
 
             var entity = await _context.Film
                 .Where(e => e.Id == model.Id)

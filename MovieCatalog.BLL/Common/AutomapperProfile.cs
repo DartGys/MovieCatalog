@@ -16,7 +16,7 @@ namespace MovieCatalog.BLL.Common
         public AutomapperProfile()
         {
             CreateMap<Film, FilmModel>()
-                .ForMember(fm => fm.Categories, f => f.MapFrom(x => x.FilmCategories.Select(fc => fc.Category.Name)));
+                .ForMember(fm => fm.Categories, f => f.MapFrom(x => x.FilmCategories.Select(fc => fc.Category.Name) ?? null));
 
             CreateMap<Category, CategoryModel>()
                 .ForMember(cm => cm.FilmsCount, f => f.MapFrom(x => x.FilmCategories.Count));

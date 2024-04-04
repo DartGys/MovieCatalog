@@ -8,16 +8,13 @@ namespace MovieCatalog.BLL.Models.ViewModels
 {
     public class CategoryModel : AbstractModel
     {
-        public CategoryModel(int id, string name, int filmsCount, IReadOnlyList<CategoryModel> childcategories, CategoryModel parentCategory) : base(id)
+        public CategoryModel(int id, string name) : base(id)
         {
             Name = name;
-            FilmsCount = filmsCount;
-            ChildCategories = childcategories;
-            ParentCategory = parentCategory;
         }
         public string Name { get; set; }
         public int FilmsCount { get; set; }
-        public CategoryModel ParentCategory { get; set; }
-        public IReadOnlyList<CategoryModel> ChildCategories { get; set; }
+        public CategoryModel? ParentCategory { get; set; }
+        public virtual IReadOnlyList<CategoryModel>? ChildCategories { get; set; }
     }
 }

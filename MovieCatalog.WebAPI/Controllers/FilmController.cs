@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieCatalog.BLL.Interfaces;
+using MovieCatalog.BLL.Models.DtoModels;
 using MovieCatalog.BLL.Models.ViewModels;
 using MovieCatalog.WebAPI.Validation;
 
@@ -38,7 +39,7 @@ namespace MovieCatalog.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Add([FromBody] FilmModel model)
+        public async Task<ActionResult<int>> Add([FromBody] FilmInputModel model)
         {
             var valid = FilmValidator.Validation(model);
 
@@ -53,7 +54,7 @@ namespace MovieCatalog.WebAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update([FromBody] FilmModel model)
+        public async Task<ActionResult> Update([FromBody] FilmInputModel model)
         {
             var valid = FilmValidator.Validation(model);
 

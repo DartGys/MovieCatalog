@@ -8,7 +8,7 @@ namespace MovieCatalog.BLL.Models.DtoModels
 {
     public class CategoryInputModel : AbstractModel
     {
-        public CategoryInputModel(int id, string name, int parentCategoryId) : base(id)
+        public CategoryInputModel(int id, string name, int? parentCategoryId) : base(id)
         {
             Name = name;
             ParentCategoryId = parentCategoryId;

@@ -8,14 +8,14 @@ namespace MovieCatalog.BLL.Models.DtoModels
 {
     public class FilmInputModel : AbstractModel
     {
-        public FilmInputModel(int id, string name, string director, DateTime release) : base(id)
+        public FilmInputModel(int id, string name, string director) : base(id)
         {
             Name = name;
             Director = director;
-            Release = release;
+            Release = DateTime.UtcNow;
         }
         public string Name { get; set; }
         public string Director { get; set; }
-        public DateTime Release { get; set; }
+        public DateTime Release { get; }
     }
 }
