@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 
 namespace MovieCatalog.BLL.Models.ViewModels
 {
-    public class CategoryModel
+    public class CategoryModel : AbstractModel
     {
-        public CategoryModel(int id, string name, int filmsCount, IReadOnlyList<CategoryModel> childcategories, CategoryModel parentCategory)
+        public CategoryModel(int id, string name, int filmsCount, IReadOnlyList<CategoryModel> childcategories, CategoryModel parentCategory) : base(id)
         {
-            Id = id;
             Name = name;
             FilmsCount = filmsCount;
             ChildCategories = childcategories;
             ParentCategory = parentCategory;
         }
-
-        public int Id { get; set; }
         public string Name { get; set; }
         public int FilmsCount { get; set; }
         public CategoryModel ParentCategory { get; set; }
