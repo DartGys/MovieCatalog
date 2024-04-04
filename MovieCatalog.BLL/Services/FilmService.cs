@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MovieCatalog.BLL.Interfaces;
+using MovieCatalog.BLL.Models;
 using MovieCatalog.BLL.Models.ViewModels;
 using MovieCatalog.DAL.Data;
 using MovieCatalog.DAL.Data.Entitie;
@@ -17,9 +18,11 @@ namespace MovieCatalog.BLL.Services
             _context = context;
             _mapper = mapper;
         }
-        public async Task<int> AddAsync(FilmModel model)
+        public async Task<int> AddAsync(AbstractModel model)
         {
-            var entitiy = _mapper.Map<Film>(model);
+            var filmModel = (FilmModel)model;
+
+            var entitiy = _mapper.Map<Film>(filmModel);
 
             await _context.Film.AddAsync(entitiy);
             await _context.SaveChangesAsync();
@@ -35,7 +38,7 @@ namespace MovieCatalog.BLL.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<FilmModel>> GetAllAsync()
+        public async Task<IEnumerable<AbstractModel>> GetAllAsync()
         {
             var entities = await _context.Film
                 .AsNoTracking()
@@ -48,7 +51,7 @@ namespace MovieCatalog.BLL.Services
             return models;
         }
 
-        public async Task<FilmModel> GetByIdAsync(int id)
+        public async Task<AbstractModel> GetByIdAsync(int id)
         {
             var entitiy = await _context.Film
                 .AsNoTracking()
@@ -61,14 +64,16 @@ namespace MovieCatalog.BLL.Services
             return model;
         }
 
-        public async Task UpdateAsync(FilmModel model)
+        public async Task UpdateAsync(AbstractModel model)
         {
+            var filmModel = (FilmModel)model;
+
             var entity = await _context.Film
                 .Where(e => e.Id == model.Id)
                 .ExecuteUpdateAsync(e => e
-                .SetProperty(x => x.Name, model.Name)
-                .SetProperty(x => x.Director, model.Director)
-                .SetProperty(x => x.Release, model.Release));
+                .SetProperty(x => x.Name, filmModel.Name)
+                .SetProperty(x => x.Director, filmModel.Director)
+                .SetProperty(x => x.Release, filmModel.Release));
 
             await _context.SaveChangesAsync();
         }
