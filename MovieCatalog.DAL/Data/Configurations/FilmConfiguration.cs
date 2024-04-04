@@ -29,7 +29,8 @@ namespace MovieCatalog.DAL.Data.Configurations
 
             builder.HasMany(f => f.FilmCategories)
                 .WithOne(fc => fc.Film)
-                .HasForeignKey(fc => fc.FilmId);
+                .HasForeignKey(fc => fc.FilmId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
