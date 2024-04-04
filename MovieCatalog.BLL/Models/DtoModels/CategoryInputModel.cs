@@ -8,15 +8,13 @@ namespace MovieCatalog.BLL.Models.DtoModels
 {
     public class CategoryInputModel : AbstractModel
     {
-        public CategoryInputModel(int id, string name, int parentCategoryId, ICollection<int> childCategoryIds) : base(id)
+        public CategoryInputModel(int id, string name, int parentCategoryId) : base(id)
         {
             Name = name;
             ParentCategoryId = parentCategoryId;
-            ChildCategoryIds = childCategoryIds;
         }
 
         public string Name { get; set; }
-        public int ParentCategoryId { get; set; }
-        public virtual ICollection<int> ChildCategoryIds { get; set; }
+        public int? ParentCategoryId { get; set; }
     }
 }
