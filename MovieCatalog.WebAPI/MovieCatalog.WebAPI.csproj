@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MovieCatalog.BLL\MovieCatalog.BLL.csproj" />
     <ProjectReference Include="..\MovieCatalog.DAL\MovieCatalog.DAL.csproj" />
   </ItemGroup>
 
