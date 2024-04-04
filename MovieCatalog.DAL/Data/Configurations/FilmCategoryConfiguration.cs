@@ -16,12 +16,14 @@ namespace MovieCatalog.DAL.Data.Configurations
             builder.HasKey(x => x.Id);
 
             builder.HasOne(fc => fc.Film)
-            .WithMany(f => f.FilmCategories)
-            .HasForeignKey(fc => fc.FilmId);
+                .WithMany(f => f.FilmCategories)
+                .HasForeignKey(fc => fc.FilmId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(fc => fc.Category)
                 .WithMany(c => c.FilmCategories)
-                .HasForeignKey(fc => fc.CategoryId);
+                .HasForeignKey(fc => fc.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
