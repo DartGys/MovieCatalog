@@ -4,23 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieCatalog.BLL.Models
+namespace MovieCatalog.BLL.Models.ViewModels
 {
-    public class FilmModel
+    public class FilmModel : AbstractModel
     {
-        public FilmModel(int id, string name, string director, DateTime release, List<string> categories)
+        public FilmModel(int id, string name, string director, DateTime release, List<string> categories) : base(id)
         {
-            Id = id;
             Name = name;
             Director = director;
             Release = release;
             Categories = categories;
         }
 
-        public int Id { get; set; }
         public string Name { get; set; }
-        public string Director {  get; set; }
-        public DateTime Release {  get; set; }
+        public string Director { get; set; }
+        public DateTime Release { get; set; }
         public List<string> Categories { get; set; }
 
     }

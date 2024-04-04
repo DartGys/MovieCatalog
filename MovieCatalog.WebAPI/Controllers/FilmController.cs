@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieCatalog.BLL.Interfaces;
-using MovieCatalog.BLL.Models;
+using MovieCatalog.BLL.Models.ViewModels;
 using MovieCatalog.WebAPI.Validation;
 
 namespace MovieCatalog.WebAPI.Controllers

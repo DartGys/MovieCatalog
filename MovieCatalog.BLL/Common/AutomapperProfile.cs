@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using MovieCatalog.BLL.Models;
+using MovieCatalog.BLL.Models.DtoModels;
+using MovieCatalog.BLL.Models.ViewModels;
 using MovieCatalog.DAL.Data.Entitie;
 using MovieCatalog.DAL.Data.Entities;
 using System;
@@ -17,12 +18,12 @@ namespace MovieCatalog.BLL.Common
             CreateMap<Film, FilmModel>()
                 .ForMember(fm => fm.Categories, f => f.MapFrom(x => x.FilmCategories.Select(fc => fc.Category.Name)));
 
-            CreateMap<FilmModel, Film>();
-
             CreateMap<Category, CategoryModel>()
                 .ForMember(cm => cm.FilmsCount, f => f.MapFrom(x => x.FilmCategories.Count));
 
-            CreateMap<CategoryModel, Category>();
+            CreateMap<CategoryInputModel, Category>();
+
+            CreateMap<FilmInputModel, Film>();
         }
     }
 }

@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using MovieCatalog.BLL.Interfaces;
 using MovieCatalog.BLL.Models;
+using MovieCatalog.BLL.Models.DtoModels;
+using MovieCatalog.BLL.Models.ViewModels;
 using MovieCatalog.DAL.Data;
 using MovieCatalog.DAL.Data.Entities;
 
@@ -18,9 +20,11 @@ namespace MovieCatalog.BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<int> AddAsync(CategoryModel model)
+        public async Task<int> AddAsync(AbstractModel model)
         {
-            var entity = _mapper.Map<Category>(model);
+            var categoryModel = (CategoryInputModel)model;
+
+            var entity = _mapper.Map<Category>(categoryModel);
 
             await _context.Categories.AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -36,7 +40,7 @@ namespace MovieCatalog.BLL.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CategoryModel>> GetAllAsync()
+        public async Task<IEnumerable<AbstractModel>> GetAllAsync()
         {
             var entities = await _context.Categories
                 .AsNoTracking()
@@ -50,7 +54,7 @@ namespace MovieCatalog.BLL.Services
             return models;
         }
 
-        public async Task<CategoryModel> GetByIdAsync(int id)
+        public async Task<AbstractModel> GetByIdAsync(int id)
         {
             var entity = await _context.Categories
                 .AsNoTracking()
@@ -64,12 +68,14 @@ namespace MovieCatalog.BLL.Services
             return model;
         }
 
-        public async Task UpdateAsync(CategoryModel model)
+        public async Task UpdateAsync(AbstractModel model)
         {
+            var categoryModel = (CategoryInputModel)model;
+
             var entity = await _context.Categories
                 .Where(e => e.Id == model.Id)
                 .ExecuteUpdateAsync(e => e
-                .SetProperty(x => x.Name, model.Name));
+                .SetProperty(x => x.Name, categoryModel.Name));
 
             await _context.SaveChangesAsync();
         }
