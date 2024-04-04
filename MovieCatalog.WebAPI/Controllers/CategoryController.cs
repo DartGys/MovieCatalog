@@ -6,6 +6,8 @@ using MovieCatalog.WebAPI.Validation;
 
 namespace MovieCatalog.WebAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
