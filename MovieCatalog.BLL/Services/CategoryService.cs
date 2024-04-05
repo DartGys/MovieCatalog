@@ -49,9 +49,19 @@ namespace MovieCatalog.BLL.Services
                 .Include(e => e.ParentCategory)
                 .ToListAsync();
 
+            await IncludeChildCategoriesRecursive(entities);
+
             var models = _mapper.Map<IEnumerable<CategoryModel>>(entities);
 
             return models;
+        }
+
+        public async Task IncludeChildCategoriesRecursive(IEnumerable<Category> entities)
+        {
+            foreach (var entity in entities)
+            {
+                await IncludeChildCategoriesRecursive(entity);
+            }
         }
 
         public async Task<AbstractModel> GetByIdAsync(int id)
@@ -63,9 +73,37 @@ namespace MovieCatalog.BLL.Services
                 .Include(e => e.ParentCategory)
                 .FirstOrDefaultAsync(e => e.Id == id);
 
+            if(entity != null)
+                await IncludeChildCategoriesRecursive(entity);
+
             var model = _mapper.Map<CategoryModel>(entity);
 
             return model;
+        }
+
+        private async Task IncludeChildCategoriesRecursive(Category entity)
+        {
+            if(entity.ChildCategories.Count > 0)
+            {
+                foreach(var category in entity.ChildCategories)
+                {
+                    var child = await _context.Categories
+                        .AsNoTracking()
+                        .Include(e => e.FilmCategories)
+                        .Include(e => e.ChildCategories)
+                        .Include(e => e.ParentCategory)
+                        .FirstOrDefaultAsync(e => e.ParentCategoryId == category.Id);
+
+                    if(child != null)
+                    {
+                        if(category.ChildCategories == null)
+                            category.ChildCategories = new List<Category>();
+
+                        category.ChildCategories.Add(child);
+                        await IncludeChildCategoriesRecursive(child);
+                    }
+                }
+            }
         }
 
         public async Task UpdateAsync(AbstractModel model)
