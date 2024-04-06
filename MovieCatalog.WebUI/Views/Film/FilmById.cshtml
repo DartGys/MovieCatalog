@@ -1,0 +1,9 @@
+﻿@model FilmVm
+
+<h2>@Model.Name</h2>
+
+<div>
+    <p><strong>Director:</strong> @Model.Director</p>
+    <p><strong>Release Date:</strong> @Model.Release.ToShortDateString()</p>
+    <p><strong>Categories:</strong> @string.Join(", ", Model.Categories)</p>
+</div>

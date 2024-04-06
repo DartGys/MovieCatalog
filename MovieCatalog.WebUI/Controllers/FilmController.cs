@@ -10,7 +10,7 @@ namespace MovieCatalog.WebUI.Controllers
 
         public FilmController(IConfiguration config)
         {
-            url = config.GetValue<string>("ApiSettings:ApiUrl") + "film";
+            url = config.GetValue<string>("ApiSettings:ApiUrl") + "film/";
             client = new HttpClient();
             client.BaseAddress = new Uri(url);
         }
@@ -24,11 +24,19 @@ namespace MovieCatalog.WebUI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> FilmById([FromRoute]int id)
+        public async Task<IActionResult> FilmById([FromRoute] int id)
         {
             var film = await client.GetFromJsonAsync<FilmVm>($"{id}");
 
             return View(film);
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            var request = new FilmDto();
+
+            return View(request);
         }
 
         [HttpPost]
@@ -36,9 +44,9 @@ namespace MovieCatalog.WebUI.Controllers
         {
             var response = await client.PostAsJsonAsync("", film);
 
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                return Ok();
+                return RedirectToAction(nameof(FilmList));
             }
             else
             {
@@ -46,7 +54,7 @@ namespace MovieCatalog.WebUI.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             var response = await client.DeleteAsync($"{id}");
@@ -61,14 +69,22 @@ namespace MovieCatalog.WebUI.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var film = await client.GetFromJsonAsync<FilmDto>($"{id}");
+
+            return View(film);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Update(FilmDto film)
         {
             var response = await client.PutAsJsonAsync("", film);
 
             if(response.IsSuccessStatusCode)
             {
-                return Ok();
+                return RedirectToAction(nameof(FilmList));
             }
             else
             {
