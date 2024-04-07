@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieCatalog.WebUI.Models;
 
 namespace MovieCatalog.WebUI.Controllers
 {
-    [Route("[controller]")]
     public class CategoryController : Controller
     {
         private readonly string? url;
@@ -11,7 +11,7 @@ namespace MovieCatalog.WebUI.Controllers
 
         public CategoryController(IConfiguration config)
         {
-            url = config.GetValue<string>("ApiSettings:ApiUrl") + "category";
+            url = config.GetValue<string>("ApiSettings:ApiUrl") + "category/";
             client = new HttpClient();
             client.BaseAddress = new Uri(url);
         }
@@ -24,14 +24,34 @@ namespace MovieCatalog.WebUI.Controllers
             return View(categories);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> CategoryById(int id)
+        {
+            var category = await client.GetFromJsonAsync<CategoryVm>($"{id}");
+
+            return View(category);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            var categories = await client.GetFromJsonAsync<IEnumerable<CategoryNameDto>>("");
+
+            ViewData["CategoryName"] = new SelectList(categories, "Id", "Name");
+
+            var category = new CategoryDto();
+
+            return View(category);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(CategoryDto category)
         {
-            var response = await client.PatchAsJsonAsync("", category);
+            var response = await client.PostAsJsonAsync("", category);
 
             if(response.IsSuccessStatusCode)
             {
-                return Ok();
+                return RedirectToAction(nameof(CategoryList));
             }
             else
             {
@@ -54,14 +74,22 @@ namespace MovieCatalog.WebUI.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            var category = new CategoryDto { Id = id };
+
+            return View(category);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Update(CategoryDto category)
         {
             var response = await client.PutAsJsonAsync("", category);
 
             if(response.IsSuccessStatusCode)
             {
-                return Ok();
+                return RedirectToAction(nameof(CategoryList));
             }
             else
             {

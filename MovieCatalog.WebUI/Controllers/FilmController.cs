@@ -23,7 +23,7 @@ namespace MovieCatalog.WebUI.Controllers
             return View(films);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<IActionResult> FilmById([FromRoute] int id)
         {
             var film = await client.GetFromJsonAsync<FilmVm>($"{id}");

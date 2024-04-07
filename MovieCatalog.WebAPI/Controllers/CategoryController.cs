@@ -38,6 +38,14 @@ namespace MovieCatalog.WebAPI.Controllers
             return Ok(model);
         }
 
+        [HttpGet("names")]
+        public async Task<ActionResult<CategoryNameModel>> GetNames()
+        {
+            var models = await _categoryService.GetCategoryName();
+
+            return Ok(models);
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> Add([FromBody] CategoryInputModel model)
         {

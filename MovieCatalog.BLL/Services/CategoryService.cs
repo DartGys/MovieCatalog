@@ -40,6 +40,15 @@ namespace MovieCatalog.BLL.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<CategoryNameModel>> GetCategoryName()
+        {
+            var entities = await _context.Categories.ToListAsync();
+
+            var models = _mapper.Map<IEnumerable<CategoryNameModel>>(entities);
+
+            return models;
+        }
+
         public async Task<IEnumerable<AbstractModel>> GetAllAsync()
         {
             var entities = await _context.Categories
