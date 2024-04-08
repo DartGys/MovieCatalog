@@ -1,0 +1,44 @@
+﻿@model CategoryVm
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Details</title>
+</head>
+<body>
+    <h1>Category Details</h1>
+    <div>
+        <h2>Name: @Model.Name</h2>
+        <h3>Films Count: @Model.FilmsCount</h3>
+        @if (Model.ChildCategories != null && Model.ChildCategories.Any())
+        {
+            DisplaySubCategories(Model.ChildCategories);
+        }
+        else
+        {
+            <p>No subcategories</p>
+        }
+    </div>
+</body>
+</html>
+
+
+@functions {
+    private void DisplaySubCategories(IReadOnlyList<CategoryVm>? categories)
+    {
+        if (categories != null && categories.Any())
+        {
+            <ul>
+                @foreach (var category in categories)
+                {
+                    <li><a href="@Url.Action("CategoryById", "Category", new { id = category.Id })">@category.Name (@category.FilmsCount)</a></li>
+                    {
+                        DisplaySubCategories(category.ChildCategories);
+                    }
+                }
+            </ul>
+        }
+    }
+}
