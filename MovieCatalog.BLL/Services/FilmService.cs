@@ -79,7 +79,7 @@ namespace MovieCatalog.BLL.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<int> AddCategoryToFilm(int filmId, int categoryId)
+        public async Task<IEnumerable<int>> AddCategoryToFilm(int filmId, int[] categoryIds)
         {
             var film = await _context.Film.FindAsync(filmId);
 
@@ -88,35 +88,40 @@ namespace MovieCatalog.BLL.Services
                 throw new Exception("Film doesnt exist");
             }
 
-            var category = await _context.Categories.FindAsync(categoryId);
+            var FilmCategories = new List<FilmCategory>();
 
-            if(category == null)
+            foreach (int categoryId in categoryIds)
             {
-                throw new Exception("Category doesnt exist");
+                var category = await _context.Categories.FindAsync(categoryId);
+
+                if (category == null)
+                {
+                    throw new Exception("Category doesnt exist");
+                }
+
+                var filmCategoryEntity = new FilmCategory()
+                {
+                    CategoryId = categoryId,
+                    FilmId = filmId
+                };
+
+                FilmCategories.Add(filmCategoryEntity);
             }
 
-            var filmCategoryEntity = new FilmCategory()
-            {
-                CategoryId = categoryId,
-                FilmId = filmId
-            };
-
-            await _context.FilmCategories.AddAsync(filmCategoryEntity);
+            await _context.FilmCategories.AddRangeAsync(FilmCategories);
             await _context.SaveChangesAsync();
 
-            return filmCategoryEntity.Id;
+            return FilmCategories.Select(f => f.Id);
         }
 
-        public async Task DeleteCategoryFromFilm(int filmId, int categoryId)
+        public async Task DeleteCategoryFromFilm(int filmId, int[] categoryIds)
         {
-            var filmCategoryEntity = await _context.FilmCategories
-                .FirstOrDefaultAsync(x => x.CategoryId == categoryId && x.FilmId == filmId);
+            var filmCategoryEntities = await _context.FilmCategories
+                .Where(e => e.FilmId == filmId && categoryIds.Contains(e.CategoryId))
+                .ToListAsync();
 
-            if(filmCategoryEntity != null)
-            {
-                _context.FilmCategories.Remove(filmCategoryEntity);
-                await _context.SaveChangesAsync();
-            }
+            _context.FilmCategories.RemoveRange(filmCategoryEntities);
+            await _context.SaveChangesAsync();
         }
     }
 }

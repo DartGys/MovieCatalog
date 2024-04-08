@@ -1,0 +1,72 @@
+﻿@model IEnumerable<CategoryVm>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col">
+                <a class="btn btn-primary" href="@Url.Action("Add", "Category")">Add New Category</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Films Count</th>
+                    <th>Sub categories</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td><a href="@Url.Action("CategoryById", "Category", new { id = category.Id })">@category.Name</a></td>
+                        <td>@category.FilmsCount</td>
+                        <td>
+                            @{
+                                if (category.ChildCategories == null || category.ChildCategories.Count() == 0)
+                                {
+                                    <ul>No sub category</ul>
+                                }
+                                else
+                                {
+                                    DisplaySubCategories(category.ChildCategories);
+                                }
+                            }
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" onclick="deleteCategory(@category.Id)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+@functions {
+    private void DisplaySubCategories(IReadOnlyList<CategoryVm>? categories)
+    {
+        if (categories != null && categories.Any())
+        {
+            <ul>
+                @foreach (var category in categories)
+                {
+                    <li>@category.Name (@category.FilmsCount)</li>
+                    {
+                        DisplaySubCategories(category.ChildCategories);
+                    }
+                }
+            </ul>
+        }
+    }
+}
+
+<script src="~/js/category/deleteCategory.js"></script>

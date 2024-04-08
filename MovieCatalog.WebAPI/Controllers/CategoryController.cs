@@ -25,6 +25,7 @@ namespace MovieCatalog.WebAPI.Controllers
             return Ok(models);
         }
 
+
         [HttpGet("{id}")]
         public async Task<ActionResult<CategoryModel>> GetById(int id)
         {
@@ -36,6 +37,30 @@ namespace MovieCatalog.WebAPI.Controllers
             }
 
             return Ok(model);
+        }
+
+        [HttpGet("names")]
+        public async Task<ActionResult<CategoryNameModel>> GetNames()
+        {
+            var models = await _categoryService.GetCategoryName();
+
+            return Ok(models);
+        }
+
+        [HttpGet("notinfilm/{filmId}")]
+        public async Task<ActionResult<IEnumerable<CategoryNameModel>>> GetNotInFilm([FromRoute]int filmId)
+        {
+            var models = await _categoryService.GetCategoryNotInFilm(filmId);
+
+            return Ok(models);
+        }
+
+        [HttpGet("infilm/{filmId}")]
+        public async Task<ActionResult<IEnumerable<CategoryNameModel>>> GetInFilm([FromRoute]int filmId)
+        {
+            var models = await _categoryService.GetCategoryInFilm(filmId);
+
+            return Ok(models);
         }
 
         [HttpPost]

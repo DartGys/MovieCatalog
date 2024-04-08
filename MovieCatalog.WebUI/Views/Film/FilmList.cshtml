@@ -1,0 +1,42 @@
+﻿@model IEnumerable<FilmVm>
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col">
+            <a class="btn btn-primary" href="@Url.Action("Add", "Film")">Add New Film</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Director</th>
+                        <th>Release</th>
+                        <th>Categories</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var film in Model)
+                    {
+                        <tr id="filmRow_@film.Id">
+                            <td><a href="@Url.Action("FilmById", "Film", new { id = film.Id })">@film.Name</a></td>
+                            <td>@film.Director</td>
+                            <td>@film.Release.ToShortDateString()</td>
+                            <td>@string.Join(", ", film.Categories)</td>
+                            <td>
+                                <a href="@Url.Action("Update", "Film", new { id = film.Id })" class="btn btn-primary">Edit</a>
+                                <button class="btn btn-danger" onclick="deleteFilm(@film.Id)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/film/deleteFilm.js"></script>
