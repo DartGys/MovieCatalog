@@ -77,12 +77,12 @@ namespace MovieCatalog.WebAPI.Controllers
         }
 
         [HttpPost("add-category")]
-        public async Task<ActionResult<int>> AddCategoryToFilm(int filmId, int categoryId)
+        public async Task<ActionResult<int>> AddCategoryToFilm(FilmCategoryModel filmCategory)
         {
             try
             {
-                var filmCategoryEntityId = await _filmService.AddCategoryToFilm(filmId, categoryId);
-                return Ok(filmCategoryEntityId);
+                var filmCategoryEntityIds = await _filmService.AddCategoryToFilm(filmCategory.FilmId, filmCategory.CategoryIds);
+                return Ok(filmCategoryEntityIds);
             }
             catch (Exception ex)
             {
@@ -90,10 +90,12 @@ namespace MovieCatalog.WebAPI.Controllers
             }
         }
 
-        [HttpDelete("delete-category")]
-        public async Task<ActionResult> DeleteCategoryFromFilm(int filmId, int categoryId)
+        [HttpDelete("delete-category/{filmId}/{categoryIds}")]
+        public async Task<ActionResult> DeleteCategoryFromFilm([FromRoute] int filmId, [FromRoute] string categoryIds)
         {
-            await _filmService.DeleteCategoryFromFilm(filmId, categoryId);
+            var categoryIdsArray = categoryIds.Split(',').Select(int.Parse).ToArray();
+
+            await _filmService.DeleteCategoryFromFilm(filmId, categoryIdsArray);
 
             return Ok();
         }

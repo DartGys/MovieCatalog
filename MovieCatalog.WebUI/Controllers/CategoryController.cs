@@ -35,7 +35,7 @@ namespace MovieCatalog.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var categories = await client.GetFromJsonAsync<IEnumerable<CategoryNameDto>>("");
+            var categories = await client.GetFromJsonAsync<IEnumerable<CategoryNameDto>>("names");
 
             ViewData["CategoryName"] = new SelectList(categories, "Id", "Name");
 

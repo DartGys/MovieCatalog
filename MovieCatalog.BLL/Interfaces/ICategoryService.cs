@@ -11,6 +11,8 @@ namespace MovieCatalog.BLL.Interfaces
 {
     public interface ICategoryService : ICrud<AbstractModel>
     {
+        Task<IEnumerable<CategoryNameModel>> GetCategoryInFilm(int filmId);
         Task<IEnumerable<CategoryNameModel>> GetCategoryName();
+        Task<IEnumerable<CategoryNameModel>> GetCategoryNotInFilm(int filmId);
     }
 }

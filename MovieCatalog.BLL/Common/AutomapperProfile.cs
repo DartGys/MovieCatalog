@@ -24,6 +24,8 @@ namespace MovieCatalog.BLL.Common
             CreateMap<CategoryInputModel, Category>();
 
             CreateMap<FilmInputModel, Film>();
+
+            CreateMap<Category, CategoryNameModel>();
         }
     }
 }

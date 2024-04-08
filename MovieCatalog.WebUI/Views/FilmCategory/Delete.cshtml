@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Film</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" rel="stylesheet" />
+</head>
+<body>
+    <h2>Delete Categories</h2>
+    <form id="deleteFilmForm" action="/FilmCategory/Delete" method="post">
+        <input type="hidden" name="filmId" value="@ViewBag.filmId" />
+        <div class="form-group">
+            <label for="categories">Categories:</label>
+            <select id="categories" name="Categories[]" multiple="multiple" class="form-control">
+                @if (ViewData["CategoryName"] != null)
+                {
+                    var categories = (SelectList)ViewData["CategoryName"];
+                    foreach (var category in categories)
+                    {
+                        <option value="@category.Value">@category.Text</option>
+                    }
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-danger">Delete Categories</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Ініціалізуємо Bootstrap Multiselect
+            $('#categories').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+    </script>
+</body>
+</html>

@@ -49,6 +49,28 @@ namespace MovieCatalog.BLL.Services
             return models;
         }
 
+        public async Task<IEnumerable<CategoryNameModel>> GetCategoryNotInFilm(int filmId)
+        {
+            var entities = await _context.Categories.Where(category => !_context.FilmCategories
+                .Any(filmCategory => filmCategory.FilmId == filmId && filmCategory.CategoryId == category.Id))
+                .ToListAsync();
+
+            var models = _mapper.Map<IEnumerable<CategoryNameModel>>(entities);
+
+            return models;
+        }
+
+        public async Task<IEnumerable<CategoryNameModel>> GetCategoryInFilm(int filmId)
+        {
+            var entities = await _context.Categories.Where(category => _context.FilmCategories
+                .Any(filmCategory => filmCategory.FilmId == filmId && filmCategory.CategoryId == category.Id))
+                .ToListAsync();
+
+            var models = _mapper.Map<IEnumerable<CategoryNameModel>>(entities);
+
+            return models;
+        }
+
         public async Task<IEnumerable<AbstractModel>> GetAllAsync()
         {
             var entities = await _context.Categories

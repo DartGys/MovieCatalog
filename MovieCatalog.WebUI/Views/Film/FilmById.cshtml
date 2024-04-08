@@ -1,9 +1,18 @@
 ﻿@model FilmVm
 
-<h2>@Model.Name</h2>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Details</title>
+</head>
+<body>
 <div>
+    <a class="btn btn-primary" href="@Url.Action("Add", "FilmCategory", new { filmId = Model.Id })">Add Categories to film</a>
+    <a class="btn btn-danger" href="@Url.Action("Delete", "FilmCategory", new { filmId = Model.Id })">Delete Categories from film</a>
     <p><strong>Director:</strong> @Model.Director</p>
     <p><strong>Release Date:</strong> @Model.Release.ToShortDateString()</p>
     <p><strong>Categories:</strong> @string.Join(", ", Model.Categories)</p>
 </div>
+</body>
